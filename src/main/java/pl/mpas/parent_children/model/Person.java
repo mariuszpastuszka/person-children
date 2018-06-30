@@ -23,11 +23,12 @@ public class Person {
     private Sex sex;
     private Set<Person> children = Collections.emptySet();
 
-    public Person(String name, String surname, int age, AdultOrChild adultOrChild) {
+    public Person(String name, String surname, int age, AdultOrChild adultOrChild, Sex sex) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.adultOrChild = adultOrChild;
+        this.sex = sex;
         children = new HashSet<>();
     }
 

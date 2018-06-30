@@ -1,11 +1,11 @@
 package pl.mpas.parent_children.dao;
 
+import pl.mpas.parent_children.model.AdultOrChild;
 import pl.mpas.parent_children.model.Person;
+import pl.mpas.parent_children.model.Sex;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,8 +22,6 @@ public class PersonDaoImpl implements PersonDao {
             return false;
         }
         // TODO: check if robert exits
-        // save person
-        // save children
         String insertPersonQuery = "INSERT INTO PERSON (NAME, SURNAME, AGE, ADULT_OR_CHILD, SEX) " +
                 " VALUES (?, ?, ?, ?, ?)";
         String insertRelationschipQuery = "INSERT INTO \"PARENT-CHILD\" (PARENT_ID, CHILDREN_ID)" +
@@ -80,6 +78,29 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public List<Person> getAllPersons() {
-        return null;
+        String query = "SELECT ID, NAME, SURNAME, AGE, ADULT_OR_CHILD, SEX " +
+                "FROM PERSON";
+
+        List<Person> persons = new ArrayList<>();
+        try {
+            Statement statement = dbConnection.createStatement();
+
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                String name = result.getString(2);
+                String surname = result.getString(3);
+                int age = result.getInt(4);
+                AdultOrChild aoc = null;
+                Sex sex = null;
+                int id = result.getInt(1);
+                Person person = new Person(name, surname, age, aoc, sex);
+                person.setId(id);
+                persons.add(person);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return persons;
     }
 }
