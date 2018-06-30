@@ -17,6 +17,9 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public boolean savePerson(Person person) {
+        if (person.getId() == -1) {
+            return false;
+        }
         String insertQuery = "INSERT INTO PERSON (NAME, SURNAME, AGE, ADULT_OR_CHILD, SEX) " +
                 " VALUES (?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = null;
@@ -32,7 +35,7 @@ public class PersonDaoImpl implements PersonDao {
             System.out.println("Number of added records: " + rowAffected);
             ResultSet result = preparedStatement.getGeneratedKeys();
             if (result.next()) {
-                result.getInt(1);
+                person.setId(result.getInt(1));
             };
         } catch (SQLException e) {
             e.printStackTrace();
