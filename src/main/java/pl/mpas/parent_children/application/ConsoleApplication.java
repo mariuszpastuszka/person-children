@@ -1,5 +1,6 @@
 package pl.mpas.parent_children.application;
 
+import pl.mpas.parent_children.config.Configuration;
 import pl.mpas.parent_children.dao.PersonDao;
 import pl.mpas.parent_children.dao.PersonDaoImpl;
 import pl.mpas.parent_children.model.AdultOrChild;
@@ -13,7 +14,7 @@ import java.sql.Connection;
 public class ConsoleApplication {
 
     public static void main(String[] args) {
-        Connection dbConnection = null;
+        Connection dbConnection = Configuration.getInstance().getDbConnection();
         PersonDao databaseDao = new PersonDaoImpl(dbConnection);
         PersonService personService = new PersonServiceImpl(databaseDao);
 
