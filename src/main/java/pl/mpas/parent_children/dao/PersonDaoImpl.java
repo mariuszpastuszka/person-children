@@ -90,7 +90,7 @@ public class PersonDaoImpl implements PersonDao {
                 String name = result.getString(2);
                 String surname = result.getString(3);
                 int age = result.getInt(4);
-                AdultOrChild aoc = null;
+                AdultOrChild aoc = AdultOrChild.fromChar(result.getString(5).charAt(0));
                 Sex sex = null;
                 int id = result.getInt(1);
                 Person person = new Person(name, surname, age, aoc, sex);

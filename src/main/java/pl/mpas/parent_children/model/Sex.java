@@ -5,6 +5,14 @@ public enum Sex {
     MALE('M'),
     FEMALE('F');
 
+    public static Sex fromChar(char sex) {
+        if (sex == 'M') {
+            return MALE;
+        } else {
+            return FEMALE;
+        }
+    }
+
     public char getSex() {
         return sex;
     }
