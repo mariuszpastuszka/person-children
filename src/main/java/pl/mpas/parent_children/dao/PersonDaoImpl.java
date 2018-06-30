@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 public class PersonDaoImpl implements PersonDao {
     private Connection dbConnection;
@@ -27,23 +28,31 @@ public class PersonDaoImpl implements PersonDao {
                 " VALUES (?, ?, ?, ?, ?)";
         String insertRelationschipQuery = "INSERT INTO \"PARENT-CHILD\" (PARENT_ID, CHILDREN_ID)" +
                 "VALUES (?, ?)";
-        PreparedStatement preparedStatement = null;
+        PreparedStatement personStatement = null;
+        PreparedStatement relashionshipStatement = null;
         try {
-            preparedStatement = dbConnection.prepareStatement(insertPersonQuery);
-            insertPerson(person, preparedStatement);
+            personStatement = dbConnection.prepareStatement(insertPersonQuery);
+            insertPerson(person, personStatement);
 
             for (Person child : person.getChildren()) {
-                insertPerson(child, preparedStatement);
+                insertPerson(child, personStatement);
             }
 
+            relashionshipStatement = dbConnection.prepareStatement(insertRelationschipQuery);
+            insertPersonRelationship(person, person.getChildren(), relashionshipStatement);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return true;
     }
 
-    private void insertPersonRelationship(Person parent, Person child, PreparedStatement ps) {
-
+    private void insertPersonRelationship(Person parent, Set<Person> children, PreparedStatement ps) throws SQLException {
+        for (Person child : children) {
+            ps.setInt(1, parent.getId());
+            ps.setInt(2, child.getId());
+            int rowAffected = ps.executeUpdate();
+            System.out.println("Number of added records: " + rowAffected);
+        }
     }
 
     private void insertPerson(Person person, PreparedStatement preparedStatement) throws SQLException {
