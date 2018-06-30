@@ -1,0 +1,17 @@
+CREATE TABLE Person
+(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50),
+  surname VARCHAR(50),
+  age INT,
+  adult_or_child CHAR,
+  sex CHAR
+);
+
+CREATE TABLE "PARENT-CHILD"
+(
+  parent_id INT,
+  children_id INT,
+  CONSTRAINT "PARENT-CHILD_PERSON_ID_fk" FOREIGN KEY (parent_id) REFERENCES PERSON (ID),
+  CONSTRAINT "PARENT-CHILD_PERSON_ID_fk_2" FOREIGN KEY (children_id) REFERENCES PERSON (ID)
+);
