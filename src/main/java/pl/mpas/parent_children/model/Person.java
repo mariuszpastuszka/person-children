@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Person {
-    private int id = -1;
+    public static final int DEFAULT_ID = -1;
+    private int id = DEFAULT_ID;
 
     public int getId() {
         return id;
