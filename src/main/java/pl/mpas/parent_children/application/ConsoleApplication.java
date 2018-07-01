@@ -5,6 +5,7 @@ import pl.mpas.parent_children.dao.PersonDao;
 import pl.mpas.parent_children.dao.PersonDaoImpl;
 import pl.mpas.parent_children.model.AdultOrChild;
 import pl.mpas.parent_children.model.Person;
+import pl.mpas.parent_children.model.Sex;
 import pl.mpas.parent_children.service.PersonService;
 import pl.mpas.parent_children.service.PersonServiceImpl;
 import pl.mpas.parent_children.service.WelcomeService;
@@ -21,14 +22,14 @@ public class ConsoleApplication {
         WelcomeService welcomeService = new WelcomeService(WelcomeService.EN_LANG);
         welcomeService.sayHello();
 
-        Person peszko = new Person("Sławek", "Peszko", 45, AdultOrChild.ADULT);
-        Person peszkowa = new Person("Helena", "Peszko", 18, AdultOrChild.ADULT);
+        Person peszko = new Person("Sławek", "Peszko", 45, AdultOrChild.ADULT, Sex.MALE);
+        Person peszkowa = new Person("Helena", "Peszko", 18, AdultOrChild.ADULT, Sex.FEMALE);
 
-        Person robert = new Person("Robert", "L.", 30, AdultOrChild.ADULT);
-        Person ania = new Person("Ania", "L.", 30, AdultOrChild.ADULT);
+        Person robert = new Person("Robert", "L.", 30, AdultOrChild.ADULT, Sex.MALE);
+        Person ania = new Person("Ania", "L.", 30, AdultOrChild.ADULT, Sex.FEMALE);
 
-        Person klara = new Person("Klara", "L", 1, AdultOrChild.CHILD);
-        Person jurek = new Person("Jurek", "L.", 0, AdultOrChild.CHILD);
+        Person klara = new Person("Klara", "L", 1, AdultOrChild.CHILD, Sex.FEMALE);
+        Person jurek = new Person("Jurek", "L.", 0, AdultOrChild.CHILD, Sex.MALE);
         robert.addChild(klara);
         robert.addChild(jurek);
         ania.addChild(klara);
